@@ -30,9 +30,9 @@ Configuration:
 There are only a few parameters that need changed for your local configuration and
 must be changed in dmr-monitor.py itself, they are:
 
-    DEST_IP = '176.10.105.232'
-    DEST_PORT = 51557
-    LOCAL_IP = '192.168.65.50'
+    DEST_IP = '127.0.0.1'
+    DEST_PORT = 6667
+    LOCAL_IP = '127.0.0.1'
     DMR_PORT_RANGE = '50000-60000'
 
 Destination IP and Port are for the server you wish to send your data to. LOCAL_IP
