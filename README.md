@@ -44,7 +44,7 @@ For Automatic Operation:
 Add the following line to the end of /etc/rc.local to start and background this
 program at system start.
 
-    /usr/local/bin/dmr-monitor.py > /dev/null 2>&1 &
+    /bin/nice -n 19 /usr/local/bin/dmr-monitor.py > /dev/null 2>&1 &
 
 
 dmr-monitor.py:
