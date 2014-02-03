@@ -14,21 +14,41 @@ import sys
 import os
 import socket
 import syslog
-
-#-----------------------------
-# USER CONFIGURATION
-#-----------------------------
-DEST_IP = '127.0.0.1'
-DEST_PORT = 6667
-LOCAL_IP = '127.0.0.1'
-DMR_PORT_RANGE = '50000-60000'
-#-----------------------------
+import ConfigParser
+import argparse
 
 
-# Create global variables for the subprocess and it's PID
+# Create global variables
 #
 TCPDUMP = ''
 PID = ''
+CONFIG_DIR = '/usr/local/etc'
+CONFIG_FILE = 'dmr-monitor-config.py'
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-c', '--config', action='store', dest='CFG_FILE', help='/full/path/to/config.file (usually dmr-monitor.cfg)')
+
+cli_args = parser.parse_args()
+config = ConfigParser.ConfigParser()
+
+if not cli_args.CFG_FILE:
+    cli_args.CFG_FILE = '/usr/local/etc/dmr-monitor.cfg'
+try:
+    if not config.read(cli_args.CFG_FILE):
+        sys.exit('Configuration file \''+cli_args.CFG_FILE+'\' is not a valid configuration file! Exiting...')        
+except:    
+    sys.exit('Configuration file \''+cli_args.CFG_FILE+'\' is not a valid configuration file! Exiting...')
+
+try:
+    for section in config.sections():
+        if section == 'CONFIG':
+            DEST_IP = config.get(section, 'DEST_IP')
+            DEST_PORT = config.getint(section, 'DEST_PORT')
+            LOCAL_IP = config.get(section, 'LOCAL_IP')
+            DMR_PORT_RANGE = config.get(section, 'DMR_PORT_RANGE')
+except:
+    sys.exit('Could not parse configuration file, exiting...')
+
 
 # Function to be called if we recieve a termination signal - we have to clean up the child before exit
 def handler(_signal, _frame):

@@ -1,7 +1,19 @@
 dmr-monitor-cbridge
 ===================
 
+What is it?
 A small package for sniffing DMR header information from a c-Bridge and forwarding it to a logging server
+
+
+
+Change Log:
+3 February 2014 - Sysloging was added to ait troubleshooting. the process now 
+ignores SIGHUP, it was intended to run disconnected anyway. Also a configuration
+file was added so that upgrades can be performed without remembering to edit 
+dmr-monitor.py each time to put in local connection data
+
+MAIN README/MANUAL:
+===================
 
 About:
 This package is targetted and tested specifically for the Ravennet/Rayfield
@@ -27,9 +39,14 @@ so either use sudo or su if you're not logged in as root already... a poor
 practice, but the typical way the CLI is accessed on a c-Bridge.
 
 Configuration:
-There are only a few parameters that need changed for your local configuration and
-must be changed in dmr-monitor.py itself, they are:
+There are only a few parameters that need changed for your local configuration. A
+sample configuration file is provided as dmr-monitor-SAMPLE.cfg. This file should
+copied to /usr/local/etc, renamed to dmr-monitor.cfg and customized for your
+installation. Note, the location of the config file may be specified on the
+command line as well (it is the /fully/qualified/path/and/file.name). The
+config file should look like this, only with your local data included
 
+    [CONFIG]
     DEST_IP = '127.0.0.1'
     DEST_PORT = 6667
     LOCAL_IP = '127.0.0.1'
@@ -46,6 +63,9 @@ program at system start.
 
     /bin/nice -n 19 /usr/local/bin/dmr-monitor.py > /dev/null 2>&1 &
 
+or if specifying a path to the config:
+
+    /bin/nice -n 19 /usr/local/bin/dmr-monitor.py -c /usr/local/etc/dmr-monitor.cfg > /dev/null 2>&1 &
 
 dmr-monitor.py:
 Copyright (c) 2013 Cortney T. Buffington, N0MJS and the K0USY Group. n0mjs@me.com
