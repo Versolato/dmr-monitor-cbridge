@@ -15,7 +15,7 @@ import os
 import socket
 import syslog
 import ConfigParser
-import argparse
+import optparse
 
 
 # Create global variables
@@ -25,10 +25,10 @@ PID = ''
 CONFIG_DIR = '/usr/local/etc'
 CONFIG_FILE = 'dmr-monitor-config.py'
 
-parser = argparse.ArgumentParser()
-parser.add_argument('-c', '--config', action='store', dest='CFG_FILE', help='/full/path/to/config.file (usually dmr-monitor.cfg)')
+parser = optparse.OptionParser()
+parser.add_option('-c', '--config', action='store', dest='CFG_FILE', help='/full/path/to/config.file (usually dmr-monitor.cfg)')
 
-cli_args = parser.parse_args()
+(cli_args, args) = parser.parse_args()
 config = ConfigParser.ConfigParser()
 
 if not cli_args.CFG_FILE:
