@@ -86,7 +86,7 @@ if __name__ == '__main__':
     syslog.syslog(syslog.LOG_INFO, message)
 
     # Set signal handers so that we can gracefully exit if need be
-    for sig in [signal.SIGTERM, signal.SIGINT, signal.SIGQUIT, signal.SIGKILL]:
+    for sig in [signal.SIGTERM, signal.SIGINT, signal.SIGQUIT]:
         signal.signal(sig, handler)
 
     # Create our socket
