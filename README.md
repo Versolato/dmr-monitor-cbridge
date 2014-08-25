@@ -7,7 +7,7 @@ A small package for sniffing DMR header information from a c-Bridge and forwardi
 
 
 Change Log:
-3 February 2014 - Sysloging was added to ait troubleshooting. the process now 
+3 February 2014 - Sysloging was added to aid troubleshooting. the process now 
 ignores SIGHUP, it was intended to run disconnected anyway. Also a configuration
 file was added so that upgrades can be performed without remembering to edit 
 dmr-monitor.py each time to put in local connection data
